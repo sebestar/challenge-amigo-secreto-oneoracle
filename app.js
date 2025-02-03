@@ -2,6 +2,7 @@
 
 resetearJuego();
 var nombresAmiSecreto = [];
+var nroSorteo = 1;
 const MIN_AMIGOS_JUEGO = 2;
 
 function agregarAmigo() {
@@ -29,7 +30,7 @@ function sortearAmigo() {
 
 function realizarSorteo() {
     indiceNombre = Math.floor(Math.random() * nombresAmiSecreto.length);
-    actualizarResultado(`El nombre sorteado es: ${nombresAmiSecreto[indiceNombre]}`);
+    actualizarResultado(`El nombre sorteado es: ${nombresAmiSecreto[indiceNombre]}. Sorteo Nro: ${nroSorteo++}`);
 }
 
 function amigosDisponibles() {
