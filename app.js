@@ -1,5 +1,6 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
+resetearJuego();
 var nombresAmiSecreto = [];
 const MIN_AMIGOS_JUEGO = 2;
 
@@ -19,8 +20,6 @@ function agregarAmigos(...amigos) {
 
 function sortearAmigo() {
     limpiarUlResultado();
-    console.log(amigosDisponibles());
-    
     if(amigosDisponibles()) {
         realizarSorteo();
     } else {
