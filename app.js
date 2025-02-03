@@ -1,16 +1,14 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
 var nombresAmiSecreto = [];
+const MIN_AMIGOS_JUEGO = 2;
 
-function agregarAmigo(){
+function agregarAmigo() {
     if(validarInput()){
-        nombresAmiSecreto.push(getInputAmigo());
-        console.log(nombresAmiSecreto);
+        agregarAmigos(getInputAmigo());
         limpiarInputNombre();
         actualizarUlListaAmigos();
     }
-    
-    //agregarAmigos(nombreAmigo);
 }
 
 function agregarAmigos(...amigos) {
@@ -19,24 +17,48 @@ function agregarAmigos(...amigos) {
     });
 }
 
+function sortearAmigo() {
+    limpiarUlResultado();
+    console.log(amigosDisponibles());
+    
+    if(amigosDisponibles()) {
+        realizarSorteo();
+    } else {
+        actualizarResultado(`Necesitas al menos ${MIN_AMIGOS_JUEGO} amigos para sortear`);
+    }
+}
+
+function realizarSorteo() {
+    indiceNombre = Math.floor(Math.random() * nombresAmiSecreto.length);
+    actualizarResultado(`El nombre sorteado es: ${nombresAmiSecreto[indiceNombre]}`);
+}
+
+function amigosDisponibles() {
+    return (nombresAmiSecreto.length >= MIN_AMIGOS_JUEGO);
+}
+
 function getInputAmigo() {
     return document.getElementById("amigo").value.replace(/\s+/g,' ').trim();
 }
 
 function validarInput() {
     inputAmigo = getInputAmigo();
-    elResultado = document.getElementById("resultado");
     if(inputAmigo == '') {
-        elResultado.innerText = "No puede ser vacío, debe ingresar un nombre.";
+        actualizarResultado("No puede ser vacío, debe ingresar un nombre.");
     } else if (!isNaN(inputAmigo.trim().charAt(0))) {
-        elResultado.innerText = "El primer caracter debe ser distinto de un número.";
+        actualizarResultado("El primer caracter debe ser distinto de un número.");
     } else if (inputAmigo.split(' ').length > 1) {
-        elResultado.innerText = "Puede ingresar únicamente un solo nombre.";
+        actualizarResultado("Puede ingresar únicamente un solo nombre.");
     } else {
         limpiarUlResultado();
         return true;
     } 
     return false;
+}
+
+function actualizarResultado(texto) {
+    elResultado = document.getElementById("resultado");
+    elResultado.innerText = texto;
 }
 
 function actualizarUlListaAmigos() {
